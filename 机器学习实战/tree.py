@@ -108,10 +108,10 @@ if __name__ == '__main__':
     [1, 0, 'no'], [0, 1, 'no'], [0, 0, 'no']]
     labels = ['no surfacing', 'flippers']
     splitResult = splitDataSet(dataSet, 1, 0)
-    print(splitResult)
+    #print(splitResult)
     best = bestChooseData(dataSet)
-    print(best)
+    #print(best)
     mytree = createTree(dataSet,labels)
-    print(mytree)
-    print(mytree.keys())
+    #print(mytree)
+    #print(mytree.keys())
     treePlotter.createPlot(mytree)

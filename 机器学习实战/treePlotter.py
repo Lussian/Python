@@ -49,7 +49,7 @@ def plotTree(myTree, parentPt, nodeTxt):
     # 求节点数
     numLeafs = getNumLeafs(myTree)  
     # 求层数
-    depth = getTreeDepth(myTree)
+    #depth = getTreeDepth(myTree)
     firstStr = list(myTree.keys())[0]     
     cntrPt = (plotTree.xOff + (1.0 + float(numLeafs))/2.0/plotTree.totalW, plotTree.yOff)
     plotMidText(cntrPt, parentPt, nodeTxt)
@@ -57,24 +57,29 @@ def plotTree(myTree, parentPt, nodeTxt):
     secondDict = myTree[firstStr]
     plotTree.yOff = plotTree.yOff - 1.0/plotTree.totalD
     for key in secondDict.keys():
-        if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes   
-            plotTree(secondDict[key],cntrPt,str(key))        #recursion
-        else:   #it's a leaf node print the leaf node
+        if type(secondDict[key]).__name__=='dict':   
+            plotTree(secondDict[key],cntrPt,str(key))        
+        else:   
             plotTree.xOff = plotTree.xOff + 1.0/plotTree.totalW
             plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)
             plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))
     plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
-#if you do get a dictonary you know it's a tree, and the first element will be another dict
+
 
 def createPlot(inTree):
+    # 创建一个画布，背景为白色
     fig = plt.figure(1, facecolor='white')
+    # 清空画布
     fig.clf()
+    # 定义坐标轴
     axprops = dict(xticks=[], yticks=[])
-    createPlot.ax1 = plt.subplot(111, frameon=False, **axprops)    #no ticks
-    #createPlot.ax1 = plt.subplot(111, frameon=False) #ticks for demo puropses 
+    # frameon表示是否有坐标轴
+    createPlot.ax1 = plt.subplot(111, frameon=False, **axprops)    
+    
     plotTree.totalW = float(getNumLeafs(inTree))
     plotTree.totalD = float(getTreeDepth(inTree))
-    plotTree.xOff = -0.5/plotTree.totalW; plotTree.yOff = 1.0;
+    plotTree.xOff = -0.5/plotTree.totalW 
+    plotTree.yOff = 1.0
     plotTree(inTree, (0.5,1.0), '')
     plt.show()
 
